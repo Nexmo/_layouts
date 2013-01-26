@@ -1,0 +1,258 @@
+<!doctype html>
+<!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	
+	<title>Nexmo - Labs</title>
+	<meta name="description" content="Nexmo - Labs: Nexmo is a simple API to push SMS at wholesale rates with high deliverability. Reach over 4 billion mobiles in more than 200 countries.">
+	<meta name="keywords" content="SMS API, global SMS,SMS web service,send SMS messages,receive SMS messages, Long Virtual Number, LVN, inbound messages, outbound messages, wholesale SMS API, REST API">
+	
+	<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+	
+	<link rel="shortcut icon" href="http://nexmo.github.com/favicon.ico">
+	<link rel="apple-touch-icon" href="http://nexmo.github.com/apple-touch-icon.png">
+	<link rel="stylesheet" href="http://nexmo.github.com/css/labs.css">
+
+	<script src="http://nexmo.github.com/js/libs/modernizr-1.7.min.js"></script>
+</head>
+
+<body id="documentation">
+
+<header id="minimal" class="labs">
+	<div class="container">
+		<a href="index.html" title="Home"><img id="logo" src="http://nexmo.github.com/img/labs.png" alt="logo_nexmo" width="155" height="44" /></a>
+		<nav id="primary_navigation">
+			<ul>
+				<li><a href="http://testwww.nexmo.com">nexmo.com</a></li>
+				<li class="active"><a href="index.html">Labs</a></li>
+				<li><a href="http://nexmo.zendesk.com">Help</a></li>
+				<li id="login"><a href="http://testdashboard.nexmo.com/private/dashboard">Log In</a></li>
+				<li><a href="http://testdashboard.nexmo.com/register" class="gaq">Sign Up Free</a></li>
+			</ul>
+		</nav>
+	</div>                        
+</header>
+
+<section id="main" role="main">
+	<div class="container">
+	
+		<nav id="secondary_navigation">
+      {% include nav.labs.html %}
+		</nav>
+		
+		<article>
+			
+			<p>Nexmo Labs hosts "beta" products, integrations, a small set of projects and experimental features built by Nexmo and our developer community.</p>
+	
+			<a name="started"></a>
+			<h3>Before you get started</h3>
+			<p>
+			<a class="button" href="http://testdashboard.nexmo.com/register" style="margin-left:0px">Create your Nexmo account, it's free</a>
+			</p>		
+			<br/>
+			<br/>
+			<a name="ussd"></a>
+			<h1>USSD: Introduction</h1>
+			<p>
+			We are offering two types of interaction using <a href="http://en.wikipedia.org/wiki/Unstructured_Supplementary_Service_Data" target="_blank">USSD</a> technology:
+			<ul>
+				<li>Push: Outbound notification</li>
+				<li>Prompt: Outbound notification with optional reply</a>
+			</ul>
+			</p>
+			<p>
+			Our USSD API is similar to our SMS API for <a href="http://testwww.nexmo.com/documentation/index.html#request" target="_blank">request</a> and <a href="http://testwww.nexmo.com/documentation/index.html#response" target="_blank">response</a> only the base URL is different:
+			</p>		
+			<a name="ussd_push"></a>
+			<h3>Push</h3>
+			<p>JSON end point</p>
+			<code>
+				http://rest.nexmo.com/ussd/json
+			</code>
+			<p>XML end point</p>
+			<code>
+				http://rest.nexmo.com/ussd/xml
+			</code>
+			<p>
+			<a href="http://testwww.nexmo.com/documentation/index.html#dlr" target="_blank">Delivery Receipt</a> are also supported.
+			</p>
+			<a name="ussd_prompt"></a>
+			<h3>Prompt</h3>
+			<p>JSON end point</p>
+			<code>
+				http://rest.nexmo.com/ussd-prompt/json
+			</code>
+			<p>XML end point</p>
+			<code>
+				http://rest.nexmo.com/ussd-prompt/xml
+			</code>
+			<p>
+			The response from the user will come back as an <a href="http://testwww.nexmo.com/documentation/index.html#mo" target="_blank">inbound message</a>.
+			</p>
+			<br/>
+			<a name="oauth"></a>
+			<h1>OAuth: Nexmo Authentication Flow</h1>
+			
+			<h3>Introduction</h3>
+			<p>When your application acts on behalf of our users, it's important that:
+				<ul>
+    			<li>The application be able to identify the user</li>
+    			<li>The user's privacy is protected</li>
+    			<li>Nexmo can tell which application and user are making the request</li>
+    			</ul>
+			</p>
+			<p>
+			To accomplish this, Nexmo uses the <a href="http://oauth.net/documentation/getting-started" target="_blank">OAuth 1.0a protocol</a> to give your application authorized access to the APIs. OAuth is a standard for negotiating developer authorization and granting access on behalf of Nexmo users to perform API requests. One of OAuth's benefits is the availability of many libraries, allowing developers to authenticate with Nexmo quickly and in a similar manner to how they authenticate with services such as Twitter and LinkedIn.			
+			</p>
+			<p>
+			In summary, the <a href="http://oauth.net/core/1.0/#anchor9" target="_blank">OAuth flow</a> can be described as:
+				<ul>
+				    <li>An application requests a set of temporary credentials, also known as a request token. At this point this credentials isn't associated with a specific Nexmo user's account</li>
+    				<li>The application redirects the user to a Nexmo login page where they authorize these temporary credentials (request token) to be associated with their Nexmo user's account</li>
+   				    <li>The application upgrades the temporary request token for permanent credentials, also known as an access token. These credentials are necessary to give the application access to the Nexmo APIs and make calls on behalf of the Nexmo user's account</li>
+				</ul>
+			</p>
+			<p>We suggest that you use an existing <a href="http://oauth.net/code/" target="_blank">OAuth Library</a> for your programming language of choice.</p>
+
+			<h3>Configuring Your Application</h3>
+			<p>Feel free to <a href="mailto:support@nexmo.zendesk.com">contact us</a> if you want to participate to the "<strong>Apps developer program</strong>".</p>
+			<p>Sign in to your <a href="http://testdashboard.nexmo.com/private/dashboard" target="_blank">Nexmo Dashboard</a> and select the "Apps" section.</p>
+			<br/>
+			<img src="img/apps_1.png" alt="" style="border: 2px solid #999999;width:600px;"/>
+			<br/><br/>
+			<p>Click on the "Developer" link and register your application:</p>
+			<br/>
+			<img src="img/apps_2.png" alt="" style="border: 2px solid #999999;width:600px;"/>
+			<br/><br/>
+			<p>And receive your "consumer key" and "consumer secret" required for the OAuth interaction:</p>
+			<br/>
+			<img src="img/apps_3.png" alt="" style="border: 2px solid #999999;width:600px;"/>
+			<br/><br/>
+			<p>Nexmo OAuth end points:
+			<ul>
+				<li>Request Token: <strong>http://testdashboard.nexmo.com/oauth/request</strong></li>
+				<li>Authorize: <strong>http://testdashboard.nexmo.com/oauth/authorize</strong></li>
+				<li>Authenticate: <strong>http://testdashboard.nexmo.com/oauth/authenticate</strong></li>
+				<li>Access Token: <strong>http://testdashboard.nexmo.com/oauth/access</strong></li>
+			</ul>	
+			</p>
+			<p>Once the OAuth handshaking completed, you will be able to use Nexmo APIs on behalf of the Nexmo user's account, replace "api_key" and "api_secret" by OAuth parameters.</p>
+
+			<a name="oauth_sample"></a>
+			<h3>Sample</h3>
+			<p>
+			 <iframe class="well" src="http://player.vimeo.com/video/57152341" width="500" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+			</p>
+			<p>Checkout our code sample from <a href="http://nexmo.github.com/OAuth/" target="_blank">Github</a>.</p>
+			<br/>		
+	
+		</article>	
+
+
+	</div>
+</section>
+
+<footer>
+	<div class="container">
+		<nav>
+			<h5>Product</h5>
+			<ul class="split">
+				<li><a href="http://www.nexmo.com/pricing/index.html">Pricing</a></li>
+				<li><a href="http://www.nexmo.com/how_it_works/index.html">How it works</a></li>
+				<li><a href="http://www.nexmo.com/documentation/index.html">Documentation</a></li>
+			</ul>
+			<ul class="split">
+				<li><a href="http://nexmo.zendesk.com" target="_blank">Help</a></li>
+				<li><a href="http://getsatisfaction.com/nexmo" target="_blank">Forum</a></li>
+				<li><a href="http://nexmo.zendesk.com/categories/7470-faq" target="_blank">FAQs</a></li>
+			</ul>
+			<ul class="split">
+				<li><a href="http://status.nexmo.com" target="_blank">Status</a></li>
+				<li><a href="http://www.nexmo.com/satisfaction/index.html">Satisfaction</a></li>
+				<li><a href="http://dashboard.nexmo.com/ratios/public">QoD</a></li>
+			</ul>
+		</nav>
+		<nav>
+			<h5>Company</h5>
+			<ul>
+				<li><a href="http://www.nexmo.com/company/index.html">About</a></li>
+				<li><a href="http://blog.nexmo.com">Blog</a></li>
+				<li><a href="http://www.nexmo.com/contact/index.html">Contact</a></li>
+			</ul>
+		</nav>
+		<nav>
+			<h5>Legal</h5>
+			<ul>
+				<li><a href="http://www.nexmo.com/privacy/index.html">Privacy Policy</a></li>
+				<li><a href="http://www.nexmo.com/terms/index.html">Terms</a></li>
+				<li><a href="http://www.nexmo.com/jobs/index.html">Jobs</a></li>
+			</ul>
+		</nav>
+		<nav>
+			<h5>Follow Us</h5>
+			<ul>
+				<li><a href="http://twitter.com/#!/nexmo" target="_blank">Twitter</a></li>
+				<li><a href="http://www.facebook.com/pages/Nexmo/135383013140508" target="_blank">Facebook</a></li>
+				<li><a href="http://www.linkedin.com/groups/Nexmo-Network-3866889?gid=3866889&mostPopular=&trk=tyah" target="_blank">LinkedIn</a></li>
+			</ul>
+		</nav>
+		
+		<p class="footer_cta">Reach over 5 billion mobiles. <a href="http://dashboard.nexmo.com/register" class="gaq">Sign Up Free</a></p>
+		
+		<p class="copyright">&copy; Copyright Nexmo Inc. 2011. All rights reserved.</p>
+	</section>
+</footer>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+	<script>!window.jQuery && document.write(unescape('%3Cscript src="../js/libs/jquery-1.5.1.min.js"%3E%3C/script%3E'))</script>
+	
+	<script src="../js/plugins.js"></script>
+	<script src="../js/script.js"></script>
+
+	<script type="text/javascript" src="//assets.zendesk.com/external/zenbox/v2.5/zenbox.js"></script>
+	<style type="text/css" media="screen, projection">
+	  @import url(//assets.zendesk.com/external/zenbox/v2.5/zenbox.css);
+	</style>
+	<script type="text/javascript">
+	  if (typeof(Zenbox) !== "undefined") {
+	    Zenbox.init({
+	      dropboxID:   "20091463",
+	      url:         "https://nexmo.zendesk.com",
+	      tabID:       "Support",
+	      tabColor:    "#EB6F20",
+	      tabPosition: "Left"
+	    });
+	  }
+	</script>
+	
+	<!--[if lt IE 7 ]>
+	<script src="../js/libs/dd_belatedpng.js"></script>
+	<script> DD_belatedPNG.fix('img, .png_bg, p.primary, h2.inbound, h2.outbound');</script>
+	<![endif]-->
+	<!-- Google Code for Home 90 Remarketing List -->
+	<script type="text/javascript">
+	/* <![CDATA[ */
+	var google_conversion_id = 1001951389;
+	var google_conversion_language = "en";
+	var google_conversion_format = "3";
+	var google_conversion_color = "ffffff";
+	var google_conversion_label = "wrcPCNObmgQQnaHi3QM";
+	var google_conversion_value = 0;
+	/* ]]> */
+	</script>
+	<script type="text/javascript" src="https://www.googleadservices.com/pagead/conversion.js">
+	</script>
+	<noscript>
+	<div style="display:inline;">
+	<img height="1" width="1" style="border-style:none;" alt="" src="https://www.googleadservices.com/pagead/conversion/1001951389/?value=0&amp;label=wrcPCNObmgQQnaHi3QM&amp;guid=ON&amp;script=0"/>
+	</div>
+	</noscript>
+	
+</body>
+</html>
+
